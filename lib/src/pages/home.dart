@@ -4,7 +4,12 @@ import 'package:form/src/models/product.dart';
 import 'package:form/src/providers/product-provider.dart';
 //import 'package:form/src/bloc/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final productProvider = new ProductProvider();
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,10 @@ class HomePage extends StatelessWidget {
     return FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.orangeAccent,
-        onPressed: () => Navigator.pushNamed(context, 'product'));
+        onPressed: () =>
+            Navigator.pushNamed(context, 'product_add').then((value) {
+              setState(() {});
+            }));
   }
 
   Widget _crearItem(BuildContext context, ProductModel producto) {
@@ -63,7 +71,10 @@ class HomePage extends StatelessWidget {
           title: Text('${producto.titulo} ${producto.valor}'),
           subtitle: Text('${producto.id}'),
           onTap: () =>
-              Navigator.pushNamed(context, 'product', arguments: producto)),
+              Navigator.pushNamed(context, 'product', arguments: producto)
+                  .then((value) {
+                setState(() {});
+              })),
     );
   }
 }

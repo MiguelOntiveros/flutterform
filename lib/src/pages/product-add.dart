@@ -1,16 +1,17 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:form/src/models/product.dart';
 import 'package:form/src/providers/product-provider.dart';
 import 'package:form/src/utils/util.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProductPage extends StatefulWidget {
+class ProductAddPage extends StatefulWidget {
   @override
-  _ProductPageState createState() => _ProductPageState();
+  _ProductAddPageState createState() => _ProductAddPageState();
 }
 
-class _ProductPageState extends State<ProductPage> {
+class _ProductAddPageState extends State<ProductAddPage> {
   final formKey = GlobalKey<FormState>();
   ProductModel product = new ProductModel();
   final productProvider = new ProductProvider();
@@ -19,12 +20,11 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ProductModel prodData =
+    /*final ProductModel prodData =
         ModalRoute.of(context)!.settings.arguments as ProductModel;
     if (product != null) {
       product = prodData;
-    }
-
+    }*/
     return Scaffold(
       appBar: AppBar(
         title: Text('Product'),
@@ -35,7 +35,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           IconButton(
             icon: Icon(Icons.camera_alt),
-            onPressed: _takePhoto,
+            onPressed: () {},
           ),
         ],
       ),
@@ -128,9 +128,6 @@ class _ProductPageState extends State<ProductPage> {
       } else {
         productProvider.insertProduct(product);
       }
-      /* setState(() {
-        guardando = false;
-      });*/
       mostrarSnackbar('registro guardado');
       Navigator.pop(context);
     }
@@ -157,6 +154,4 @@ class _ProductPageState extends State<ProductPage> {
     }
     setState(() {});
   }
-
-  _takePhoto() {}
 }

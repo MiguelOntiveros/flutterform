@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:form/src/models/product.dart';
 import 'package:form/src/pages/home.dart';
 import 'package:form/src/pages/login.dart';
+import 'package:form/src/pages/product-add.dart';
 import 'package:form/src/pages/product.dart';
 
 import 'src/bloc/provider.dart';
@@ -20,13 +21,14 @@ class MyApp extends StatelessWidget {
         'login': (BuildContext context) => LoginPage(),
         'home': (BuildContext context) => HomePage(),
         'product': (BuildContext context) => ProductPage(),
+        'product_add': (BuildContext context) => ProductAddPage(),
       },
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
       ),
-      onGenerateRoute: (settings) {
-        //final args = settings.arguments as ProductModel;
-      },
+      //onGenerateRoute: (settings) {
+      //final args = settings.arguments as ProductModel;
+      //},
     ));
   }
 }
