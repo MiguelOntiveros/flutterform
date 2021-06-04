@@ -128,6 +128,9 @@ class _ProductAddPageState extends State<ProductAddPage> {
       } else {
         productProvider.insertProduct(product);
       }
+      setState(() {
+        guardando = false;
+      });
       mostrarSnackbar('registro guardado');
       Navigator.pop(context);
     }

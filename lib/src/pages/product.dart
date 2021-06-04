@@ -46,6 +46,7 @@ class _ProductPageState extends State<ProductPage> {
             key: formKey,
             child: Column(
               children: <Widget>[
+                _mostrarFoto(),
                 _crearNombre(),
                 _crearPrecio(),
                 _crearBoton(),
@@ -142,6 +143,18 @@ class _ProductPageState extends State<ProductPage> {
       duration: Duration(milliseconds: 1500),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  }
+
+  Widget _mostrarFoto() {
+    if (product.fotoUrl != null) {
+      return Container();
+    } else {
+      return Image(
+        image: AssetImage(photo?.path ?? "assets/no-image.png"),
+        height: 300.0,
+        fit: BoxFit.cover,
+      );
+    }
   }
 
   _selectPhoto() async {
