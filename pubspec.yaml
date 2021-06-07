@@ -31,6 +31,8 @@ dependencies:
   rxdart: ^0.27.1
   http:
   image_picker:
+  mime_type:
+  http_parser:
 
 dev_dependencies:
   flutter_test:

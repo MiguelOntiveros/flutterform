@@ -161,18 +161,42 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   _selectPhoto() async {
+    _procesarImagen(ImageSource.gallery);
+    /*final _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(
+      source: ImageSource.gallery,
+    );
+    photo = File(pickedFile!.path);
+    if (photo != null) {
+      product.fotoUrl = null;
+    }
+    setState(() {});*/
+  }
+
+  _takePhoto() async {
+    _procesarImagen(ImageSource.camera);
+    /*final _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(
+      source: ImageSource.camera,
+    );
+    photo = File(pickedFile!.path);
+    if (photo != null) {
+      product.fotoUrl = null;
+    }
+    setState(() {});*/
+  }
+
+  _procesarImagen(ImageSource origin) async {
     final _picker = ImagePicker();
     final pickedFile = await _picker.getImage(
-      //toma la imagen de la galeria del celular
-      source: ImageSource.gallery,
+      source: origin,
     );
     //se almacena la foto seleccionada
     photo = File(pickedFile!.path);
+    //List<int> imageBytes = photo!.readAsBytesSync();
     if (photo != null) {
       product.fotoUrl = null;
     }
     setState(() {});
   }
-
-  _takePhoto() {}
 }
