@@ -149,12 +149,15 @@ class _ProductPageState extends State<ProductPage> {
     if (product.fotoUrl != null) {
       return Container();
     } else {
-      return Image(
-        image: AssetImage(photo?.path ?? "assets/no-image.png"),
-        height: 300.0,
-        fit: BoxFit.cover,
-      );
+      if (photo != null) {
+        return Image.file(
+          photo!,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      }
     }
+    return Image.asset('assets/no-image.png');
   }
 
   _selectPhoto() async {
