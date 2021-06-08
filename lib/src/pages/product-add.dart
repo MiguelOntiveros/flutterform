@@ -35,7 +35,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
           ),
           IconButton(
             icon: Icon(Icons.camera_alt),
-            onPressed: () {},
+            onPressed: _takePhoto,
           ),
         ],
       ),
@@ -46,6 +46,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
             key: formKey,
             child: Column(
               children: <Widget>[
+                _mostrarFoto(),
                 _crearNombre(),
                 _crearPrecio(),
                 _crearBoton(),
@@ -114,7 +115,7 @@ class _ProductAddPageState extends State<ProductAddPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     //cuando el formulario no es valido
     //if (formKey.currentState!.validate()) return;
     //cuando el formulario es valido
@@ -123,6 +124,9 @@ class _ProductAddPageState extends State<ProductAddPage> {
       setState(() {
         guardando = true;
       });
+      if (photo != null) {
+        product.fotoUrl = await productProvider.subirImagen(photo);
+      }
       if (product.id != null) {
         productProvider.updateProduct(product);
       } else {
@@ -144,14 +148,37 @@ class _ProductAddPageState extends State<ProductAddPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
+  Widget _mostrarFoto() {
+    if (product.fotoUrl != null) {
+      return Container();
+    } else {
+      if (photo != null) {
+        return Image.file(
+          photo!,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      }
+    }
+    return Image.asset('assets/no-image.png');
+  }
+
   _selectPhoto() async {
+    _procesarImagen(ImageSource.gallery);
+  }
+
+  _takePhoto() async {
+    _procesarImagen(ImageSource.camera);
+  }
+
+  _procesarImagen(ImageSource origin) async {
     final _picker = ImagePicker();
     final pickedFile = await _picker.getImage(
-      //toma la imagen de la galeria del celular
-      source: ImageSource.gallery,
+      source: origin,
     );
     //se almacena la foto seleccionada
     photo = File(pickedFile!.path);
+    //List<int> imageBytes = photo!.readAsBytesSync();
     if (photo != null) {
       product.fotoUrl = null;
     }

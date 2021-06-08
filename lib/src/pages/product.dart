@@ -115,7 +115,7 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  void _submit() {
+  void _submit() async {
     //cuando el formulario no es valido
     //if (formKey.currentState!.validate()) return;
     //cuando el formulario es valido
@@ -124,6 +124,9 @@ class _ProductPageState extends State<ProductPage> {
       setState(() {
         guardando = true;
       });
+      if (photo != null) {
+        product.fotoUrl = await productProvider.subirImagen(photo);
+      }
       if (product.id != null) {
         productProvider.updateProduct(product);
       } else {
@@ -145,19 +148,24 @@ class _ProductPageState extends State<ProductPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
-  Widget _mostrarFoto() {
+  _mostrarFoto() {
     if (product.fotoUrl != null) {
-      return Container();
+      return FadeInImage(
+          placeholder: AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage(product.fotoUrl!),
+          height: 300.0,
+          width: double.infinity,
+          fit: BoxFit.cover);
     } else {
       if (photo != null) {
         return Image.file(
           photo!,
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
           height: 300.0,
         );
       }
+      return Image.asset('assets/no-image.png');
     }
-    return Image.asset('assets/no-image.png');
   }
 
   _selectPhoto() async {

@@ -55,11 +55,11 @@ class ProductProvider {
     return 1;
   }
 
-  Future<String> subirImagen(File imagen) async {
+  Future<String> subirImagen(File? imagen) async {
     final url = Uri.parse(
-        'https://res.cloudinary.com/dsa2osdzj/image/upload/v1623099454/lmuhysg0fbu5yvqpxu7e.jpg');
+        'https://api.cloudinary.com/v1_1/dsa2osdzj/image/upload?upload_preset=xsvlhqof');
     //se utiliza el split para separar por imagen y por tipo image/jpeg
-    final mimeType = mime(imagen.path)!.split('/');
+    final mimeType = mime(imagen!.path)!.split('/');
 
     final imageuploadRequest = http.MultipartRequest('POST', url);
 
