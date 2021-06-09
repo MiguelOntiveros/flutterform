@@ -4,6 +4,7 @@ import 'package:form/src/pages/home.dart';
 import 'package:form/src/pages/login.dart';
 import 'package:form/src/pages/product-add.dart';
 import 'package:form/src/pages/product.dart';
+import 'package:form/src/pages/registro.dart';
 
 import 'src/bloc/provider.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         'home': (BuildContext context) => HomePage(),
         'product': (BuildContext context) => ProductPage(),
         'product_add': (BuildContext context) => ProductAddPage(),
+        'registro': (BuildContext context) => RegistroPage(),
       },
       theme: ThemeData(
         primaryColor: Colors.deepPurple,

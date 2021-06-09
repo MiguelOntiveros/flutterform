@@ -90,13 +90,4 @@ class _HomePageState extends State<HomePage> {
           ),
         ));
   }
-
-  /*ListTile(
-          title: Text('${producto.titulo} ${producto.valor}'),
-          subtitle: Text('${producto.id}'),
-          onTap: () =>
-              Navigator.pushNamed(context, 'product', arguments: producto)
-                  .then((value) {
-                setState(() {});
-              })),*/
 }
