@@ -58,7 +58,7 @@ class RegistroPage extends StatelessWidget {
           ),
           SizedBox(height: 15.0),
           FloatingActionButton(
-              child: Text('¿ya tienes cuenta?'),
+              child: Text('¿ya tienesuna cuenta?'),
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'login')),
         ],
