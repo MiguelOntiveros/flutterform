@@ -5,14 +5,23 @@ import 'package:form/src/pages/login.dart';
 import 'package:form/src/pages/product-add.dart';
 import 'package:form/src/pages/product.dart';
 import 'package:form/src/pages/registro.dart';
+import 'package:form/src/preferences/preferences.dart';
 
 import 'src/bloc/provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new Preferences();
+  await prefs.initPref();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final pref = new Preferences();
+    print('Este es el AUTH-TOKEN:');
+    print(pref.getToken);
     return Provider(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,
