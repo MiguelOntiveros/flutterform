@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:form/src/preferences/preferences.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:form/src/models/product.dart';
@@ -7,9 +8,10 @@ import 'package:http/http.dart' as http;
 
 class ProductProvider {
   final String _url = 'https://api-rest-74db2-default-rtdb.firebaseio.com';
+  final prefs = new Preferences();
 
   Future<List<ProductModel>> getProduct() async {
-    final url = '$_url/productos.json';
+    final url = '$_url/productos.json?auth=${prefs.getToken}';
     final resp = await http.get(Uri.parse(url));
     //esta variable almacena mapas
     //final decodeData = json.decode(resp.body);
@@ -29,7 +31,7 @@ class ProductProvider {
   }
 
   Future<bool> insertProduct(ProductModel producto) async {
-    final url = '$_url/productos.json';
+    final url = '$_url/productos.json?auth=${prefs.getToken}';
     final resp =
         await http.post(Uri.parse(url), body: productoModelToJson(producto));
     final decodedData = json.decode(resp.body);
@@ -38,7 +40,7 @@ class ProductProvider {
   }
 
   Future<bool> updateProduct(ProductModel producto) async {
-    final url = '$_url/productos/${producto.id}.json';
+    final url = '$_url/productos/${producto.id}.json?auth=${prefs.getToken}';
     final resp =
         await http.put(Uri.parse(url), body: productoModelToJson(producto));
     final decodedData = json.decode(resp.body);
@@ -47,7 +49,7 @@ class ProductProvider {
   }
 
   Future<int> deleteProduct(String id) async {
-    final url = '$_url/productos/$id.json';
+    final url = '$_url/productos/$id.json?auth=${prefs.getToken}';
     final resp = await http.delete(Uri.parse(url));
 
     final decodedData = json.decode(resp.body);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form/src/bloc/provider.dart';
 import 'package:form/src/providers/user-provider.dart';
+import 'package:form/src/utils/util.dart';
 
 class LoginPage extends StatelessWidget {
   final userProvider = new UserProvider();
@@ -126,9 +127,14 @@ class LoginPage extends StatelessWidget {
         });
   }
 
-  _login(LoginBloc bloc, BuildContext context) {
-    userProvider.login(bloc.email, bloc.password);
-    //Navigator.pushNamed(context, 'home');
+  _login(LoginBloc bloc, BuildContext context) async {
+    Map info = await userProvider.login(bloc.email, bloc.password);
+    if (info['ok']) {
+      Navigator.pushNamed(context, 'home');
+    } else {
+      //aqui no pude poner la info de firebase
+      mostrarAlerta(context, 'valiste ardilla');
+    }
   }
 
   Widget _crearFondo(BuildContext context) {

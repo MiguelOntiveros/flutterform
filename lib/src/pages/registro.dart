@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form/src/bloc/provider.dart';
 import 'package:form/src/providers/user-provider.dart';
+import 'package:form/src/utils/util.dart';
 
 class RegistroPage extends StatelessWidget {
   final userProvider = new UserProvider();
@@ -126,9 +127,14 @@ class RegistroPage extends StatelessWidget {
         });
   }
 
-  _register(LoginBloc bloc, BuildContext context) {
-    userProvider.newUser(bloc.email, bloc.password);
-    // Navigator.pushNamed(context, 'home');
+  _register(LoginBloc bloc, BuildContext context) async {
+    final info = await userProvider.newUser(bloc.email, bloc.password);
+    if (info['ok']) {
+      Navigator.pushNamed(context, 'home');
+    } else {
+      //aqui no pude poner la info de firebase
+      mostrarAlerta(context, 'el usuario ya existe');
+    }
   }
 
   Widget _crearFondo(BuildContext context) {
